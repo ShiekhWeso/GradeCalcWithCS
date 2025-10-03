@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS.csproj": {}
+    "C:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS.csproj": {}
   },
   "projects": {
-    "c:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS.csproj": {
+    "C:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS.csproj",
+        "projectUniqueName": "C:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS.csproj",
         "projectName": "GradeCalcWithCS",
-        "projectPath": "c:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS.csproj",
+        "projectPath": "C:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS.csproj",
         "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
-        "outputPath": "c:\\!\\Pr\\CS\\GradeCalcWithCS\\obj\\",
+        "outputPath": "C:\\!\\Pr\\CS\\GradeCalcWithCS\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config"

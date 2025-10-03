@@ -23,6 +23,7 @@ namespace GradeCalcWithCS
 
                 Console.WriteLine($"{name,-15}{average,5:F2}     {letterGrade}");
             }
+            Console.ReadKey();
         }
 
         static double CalculateAverage(double[] grades)
