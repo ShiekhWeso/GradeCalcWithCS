@@ -1,6 +1,41 @@
 ﻿using System;
 namespace GradeCalcWithCS
 {
+    class Student
+    {
+        public string Name { get; set; }
+        public double[] Grades { get; set; }
+        public double GetAverage()
+        {
+            if (Grades == null || Grades.Length == 0)
+            {
+                throw new InvalindOperationException("");
+            }
+            double total = 0;
+            foreach (double grade in Grades)
+            {
+                total += grade;
+            }
+            return total / Grades.Lenght;
+        }
+        public string GetLetterGrade()
+        {
+            if (average >= 97) return "A+";
+            else if (average >= 93) return "A";
+            else if (average >= 90) return "A-";
+            else if (average >= 87) return "B+";
+            else if (average >= 83) return "B";
+            else if (average >= 80) return "B-";
+            else if (average >= 77) return "C+";
+            else if (average >= 73) return "C";
+            else if (average >= 70) return "C-";
+            else if (average >= 67) return "D+";
+            else if (average >= 63) return "D";
+            else if (average >= 60) return "D-";
+            else return "F";
+        }
+    }
+
     class Program
     {
         static void Main()
