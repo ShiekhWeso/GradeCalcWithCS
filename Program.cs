@@ -48,30 +48,40 @@ namespace GradeCalcWithCS
                         Console.WriteLine("Press any key to return to the menu.");
                         Console.ReadKey();
                         break;
-                        // sort by gpa or name | include total number of students | students numbering (advanced features)
+                    // sort by gpa or name | include total number of students | students numbering (advanced features)
+                    // Formating the output with better spcaing and alignemnt
                     case "2":
                         Console.Write("Enter your name: ");
-                        string name = Console.ReadLine() ?? string.Empty;
+                        string name = Console.ReadLine()?.Trim() ?? string.Empty;
 
                         bool found = false;
                         foreach (var student in students)
                         {
-                            if (student.Name.Equals(name))
+                            if (student.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
                             {
                                 Console.WriteLine($"Student: {name}");
                                 Console.WriteLine($"Gpa: {student.GetGPA()}");
                                 Console.WriteLine($"Percentage: {student.GetTotalPercentage()}");
+                                Console.WriteLine($"Subjects: ");
+                                foreach (var subject in student.Subjects)
+                                {
+                                    Console.WriteLine($"→ {subject.Name}");
+                                    Console.WriteLine($"    Mark: {subject.Mark}");
+                                    Console.WriteLine($"    Percentage: {subject.GetPercentage():F2}%");
+                                    Console.WriteLine($"    Letter Grade: {subject.GetLetterGrade()}");
+                                    Console.WriteLine($"    Credit Hours: {subject.CreditHours}");
+                                    Console.WriteLine("-------------------------------------");
+                                }
                                 found = true;
                                 break;
                             }
                         }
                         if (found == false)
                         {
-                        Console.WriteLine("Student dosen't exist. Press any key to return to the main menu.");
+                        Console.WriteLine("Student doesn't exist. Press any key to return to the main menu.");
                         Console.ReadKey();
                         }    
-                        // view your grades
-                        // subject name and each grade with percentage and letter grade and the credit hours
+                        // Formating the output with better spcaing and alignemnt
                         break;
                     case "3":
                         // add new student 
@@ -96,7 +106,7 @@ namespace GradeCalcWithCS
 
         public double GetTotalPercentage()
         {
-            return Subjects.Count > 0 ? Subjects.Average(s => s.Grade) : 0;
+            return Subjects.Count > 0 ? Subjects.Average(s => s.GetPercentage()) : 0;
         }
         public double GetGPA()
         {
@@ -117,33 +127,37 @@ namespace GradeCalcWithCS
     class Subject
     {
         public string Name { get; set; } = string.Empty;
-        public double Grade { get; set; }
+        public double Mark { get; set; }
         public int CreditHours { get; set; }
 
         public string GetLetterGrade()
         {
-            if (Grade >= 90) return "A+";
-            else if (Grade >= 85) return "A";
-            else if (Grade >= 80) return "B+";
-            else if (Grade >= 70) return "B";
-            else if (Grade >= 65) return "C+";
-            else if (Grade >= 60) return "C";
-            else if (Grade >= 55) return "D+";
-            else if (Grade >= 50) return "D";
+            if (Mark >= 90) return "A+";
+            else if (Mark >= 85) return "A";
+            else if (Mark >= 80) return "B+";
+            else if (Mark >= 70) return "B";
+            else if (Mark >= 65) return "C+";
+            else if (Mark >= 60) return "C";
+            else if (Mark >= 55) return "D+";
+            else if (Mark >= 50) return "D";
             else return "F";
 
         }
         public double GetGPAvalue()
         {
-            if (Grade >= 90) return 4.0;
-            else if (Grade >= 85) return 3.7;
-            else if (Grade >= 80) return 3.3;
-            else if (Grade >= 70) return 3.0;
-            else if (Grade >= 65) return 2.7;
-            else if (Grade >= 60) return 2.0;
-            else if (Grade >= 55) return 1.3;
-            else if (Grade >= 50) return 1.0;
+            if (Mark >= 90) return 4.0;
+            else if (Mark >= 85) return 3.7;
+            else if (Mark >= 80) return 3.3;
+            else if (Mark >= 70) return 3.0;
+            else if (Mark >= 65) return 2.7;
+            else if (Mark >= 60) return 2.0;
+            else if (Mark >= 55) return 1.3;
+            else if (Mark >= 50) return 1.0;
             else return 0.0;
+        }
+        public double GetPercentage()
+        {
+            return (Mark / (CreditHours * 100)) * 100;
         }
     }
 }    
