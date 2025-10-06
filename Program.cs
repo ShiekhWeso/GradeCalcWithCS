@@ -5,12 +5,19 @@ namespace GradeCalcWithCS
     class Program
     {
         static void Main()
-        {
+        {   
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
             List<Student> students = new List<Student>
             {
-                new Student { Name = "Alice", Grades = new double[] { 99, 80.9, 90}},
-                new Student { Name = "Bob", Grades = new double[] { 70, 60.5, 75}},
-                new Student { Name = "Weso", Grades = new double[] { 85, 90.9, 88}}
+                new Student
+                {
+                    Name = "Mohamed Wesam Mohamed",
+                    Subjects = new List<Subject>
+                    {
+                        new Subject { Name = "Math", Mark = 200, CreditHours = 2.5},
+                        new Subject { Name = "Physics", Mark = 260, CreditHours = 3}
+                    }
+                }
             };
 
             while (true)
@@ -59,20 +66,23 @@ namespace GradeCalcWithCS
                         {
                             if (student.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
                             {
-                                Console.WriteLine($"Student: {name}");
+                                Console.WriteLine($"\nStudent: {student.Name}");
                                 Console.WriteLine($"Gpa: {student.GetGPA()}");
-                                Console.WriteLine($"Percentage: {student.GetTotalPercentage()}");
+                                Console.WriteLine($"Percentage: {student.GetTotalPercentage():F3}%");
                                 Console.WriteLine($"Subjects: ");
                                 foreach (var subject in student.Subjects)
                                 {
+                                    Console.WriteLine("-------------------------------------");
                                     Console.WriteLine($"→ {subject.Name}");
                                     Console.WriteLine($"    Mark: {subject.Mark}");
                                     Console.WriteLine($"    Percentage: {subject.GetPercentage():F2}%");
                                     Console.WriteLine($"    Letter Grade: {subject.GetLetterGrade()}");
                                     Console.WriteLine($"    Credit Hours: {subject.CreditHours}");
-                                    Console.WriteLine("-------------------------------------");
                                 }
                                 found = true;
+                                Console.WriteLine("-------------------------------------");
+                                Console.WriteLine("\nPress any key to continue.");
+                                Console.ReadKey();
                                 break;
                             }
                         }
@@ -89,6 +99,8 @@ namespace GradeCalcWithCS
                         break;
                     case "4":
                         Console.WriteLine("Thank you for using the GPA Calculator. Goodbye!");
+                        Console.WriteLine("Press any key to exit...");
+                        Console.ReadKey();
                         return;
                     default:
                         Console.WriteLine("Invalid choice. Press any key to try again.");
@@ -128,18 +140,20 @@ namespace GradeCalcWithCS
     {
         public string Name { get; set; } = string.Empty;
         public double Mark { get; set; }
-        public int CreditHours { get; set; }
+        public double CreditHours { get; set; }
 
         public string GetLetterGrade()
         {
-            if (Mark >= 90) return "A+";
-            else if (Mark >= 85) return "A";
-            else if (Mark >= 80) return "B+";
-            else if (Mark >= 70) return "B";
-            else if (Mark >= 65) return "C+";
-            else if (Mark >= 60) return "C";
-            else if (Mark >= 55) return "D+";
-            else if (Mark >= 50) return "D";
+            double percentage = GetPercentage();
+
+            if (percentage >= 90) return "A+";
+            else if (percentage >= 85) return "A";
+            else if (percentage >= 80) return "B+";
+            else if (percentage >= 70) return "B";
+            else if (percentage >= 65) return "C+";
+            else if (percentage >= 60) return "C";
+            else if (percentage >= 55) return "D+";
+            else if (percentage >= 50) return "D";
             else return "F";
 
         }
@@ -163,4 +177,3 @@ namespace GradeCalcWithCS
 }    
 // user input
 // file handling
-// object-oriented approach
