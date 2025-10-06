@@ -28,10 +28,48 @@ namespace GradeCalcWithCS
                 switch (choice)
                 {
                     case "1":
-                        // show all students
-                        // will be shown with gpa
+                        if (students.Count == 0)
+                        {
+                            Console.WriteLine("No students available. Press any key to return to the main menu.");
+                            Console.ReadKey();
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("=====================================");
+                            Console.WriteLine("All Students:");
+                            Console.WriteLine("=====================================");
+                            foreach (var student in students)
+                            {
+                                Console.WriteLine($"→ {student.Name}    \nGPA: {student.GetGPA():F2}    \nTotal Percentage: {student.GetTotalPercentage():F2}%");
+                                Console.WriteLine("-------------------------------------");
+                            }
+                        }
+                        Console.WriteLine("Press any key to return to the menu.");
+                        Console.ReadKey();
                         break;
+                        // sort by gpa or name | include total number of students | students numbering (advanced features)
                     case "2":
+                        Console.Write("Enter your name: ");
+                        string name = Console.ReadLine() ?? string.Empty;
+
+                        bool found = false;
+                        foreach (var student in students)
+                        {
+                            if (student.Name.Equals(name))
+                            {
+                                Console.WriteLine($"Student: {name}");
+                                Console.WriteLine($"Gpa: {student.GetGPA()}");
+                                Console.WriteLine($"Percentage: {student.GetTotalPercentage()}");
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (found == false)
+                        {
+                        Console.WriteLine("Student dosen't exist. Press any key to return to the main menu.");
+                        Console.ReadKey();
+                        }    
                         // view your grades
                         // subject name and each grade with percentage and letter grade and the credit hours
                         break;
@@ -47,7 +85,6 @@ namespace GradeCalcWithCS
                         Console.ReadKey();
                         break;
                 }
-
             }
         }
     }
