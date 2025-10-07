@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System.Globalization;
+
 namespace GradeCalcWithCS
 {
     class Program
@@ -122,10 +125,36 @@ namespace GradeCalcWithCS
                         }    
                         break;
                     case "3":
-                        Console.WriteLine("Please enter you full name: ");
-                        string Name = Console.ReadLine() ?? string.Empty;
-                        Console.WriteLine("Please enter the number of subjects: ");
-                        int subnums = int.Parse(Console.ReadLine() ?? "0");
+                        string studentName;
+                        while (true)
+                        {
+                            Console.WriteLine("Please enter you full name: ");
+                            studentName = Console.ReadLine()?.Trim() ?? "";
+
+                            if (Regex.IsMatch(studentName, @"[a-zA-Z\s]+$"))
+                            {
+                                studentName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(studentName.ToLower());
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid name. Use letters only, no numbers or symbols.");
+                            }
+                        }
+                        if (students.Any(s => s.Name.Equals(studentName, StringComparison.OrdinalIgnoreCase)))
+                        {
+                            Console.WriteLine("Student already exists. Please use a different name.");
+                            Console.ReadKey();
+                            break; 
+                        }
+
+                        int subnums;
+                        while (true)
+                        {
+                            Console.WriteLine("Enter number of subject: ");
+                            if (int.TryParse(Console.ReadLine(), out subnums) && subnums > 0) break;
+                            Console.WriteLine("Invalid input. Please enter a number greater than 0.");
+                        }
 
                         List<Subject> subjects = new List<Subject>();
 
@@ -133,27 +162,40 @@ namespace GradeCalcWithCS
                         {
                             Console.WriteLine("\nEnter subject name:");
                             string subName = Console.ReadLine()?.Trim() ?? string.Empty;
+                            subName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(subName.ToLower());
+                            if (subjects.Any(s => s.Name.Equals(subName, StringComparison.OrdinalIgnoreCase)))
+                            {
+                                Console.WriteLine("Subject already added. Please enter a different subject.");
+                                i--;
+                                continue;
+                            }
 
-                            Console.WriteLine("Enter mark:");
-                            double mark = double.Parse(Console.ReadLine() ?? "0");
+                            double mark;
+                            while (true)
+                            {
+                                Console.Write("Enter mark: ");
+                                if (double.TryParse(Console.ReadLine(), out mark)) break;
+                                Console.WriteLine("Invalid input. Please enter a valid number.");
+                            }
 
-                            Console.WriteLine("Enter credit hours:");
-                            double credit = double.Parse(Console.ReadLine() ?? "0");
+                            double credit;
+                            while (true)
+                            {
+                                Console.WriteLine("Enter credit hours:");
+                                if (double.TryParse(Console.ReadLine(), out credit) && credit > 0) break;
+                                Console.WriteLine("Invalid input. Please enter a positive number.");
+                            }
 
                             subjects.Add(new Subject { Name = subName, Mark = mark, CreditHours = credit });
-
                         }
 
-                        Student newStudent = new Student { Name = Name, Subjects = subjects };
+                        Student newStudent = new Student { Name = studentName, Subjects = subjects };
                         students.Add(newStudent);
 
                         Console.WriteLine("\nStudent added successfully!");
                         Console.WriteLine("Press any key to return to the menu.");
                         Console.ReadKey();
                         break;
-                        // handling the invalid inputs
-                        // name and subject duplication check
-                        // capilzlize subjects and student names auto
                     case "4":
                         Console.WriteLine("Thank you for using the GPA Calculator. Goodbye!");
                         Console.WriteLine("Press any key to exit...");
@@ -242,3 +284,4 @@ namespace GradeCalcWithCS
     }
 }    
 // file handling
+// GUI
