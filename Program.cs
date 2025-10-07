@@ -94,9 +94,36 @@ namespace GradeCalcWithCS
                         // Formating the output with better spcaing and alignemnt
                         break;
                     case "3":
-                        // add new student 
-                        // with each subject and each grade and credit hours
+                        Console.WriteLine("Please enter you full name: ");
+                        string Name = Console.ReadLine() ?? string.Empty;
+                        Console.WriteLine("Please enter the number of subjects: ");
+                        int subnums = int.Parse(Console.ReadLine() ?? "0");
+
+                        List<Subject> subjects = new List<Subject>();
+
+                        for (int i = 0; i < subnums; i++)
+                        {
+                            Console.WriteLine("\nEnter subject name:");
+                            string subName = Console.ReadLine()?.Trim() ?? string.Empty;
+
+                            Console.WriteLine("Enter mark:");
+                            double mark = double.Parse(Console.ReadLine() ?? "0");
+
+                            Console.WriteLine("Enter credit hours:");
+                            double credit = double.Parse(Console.ReadLine() ?? "0");
+
+                            subjects.Add(new Subject { Name = subName, Mark = mark, CreditHours = credit });
+
+                        }
+
+                        Student newStudent = new Student { Name = Name, Subjects = subjects };
+                        students.Add(newStudent);
+
+                        Console.WriteLine("\nStudent added successfully!");
+                        Console.WriteLine("Press any key to return to the menu.");
+                        Console.ReadKey();
                         break;
+                        // name and subject duplication check
                     case "4":
                         Console.WriteLine("Thank you for using the GPA Calculator. Goodbye!");
                         Console.WriteLine("Press any key to exit...");
@@ -175,5 +202,4 @@ namespace GradeCalcWithCS
         }
     }
 }    
-// user input
 // file handling
