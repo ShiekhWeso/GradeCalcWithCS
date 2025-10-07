@@ -14,8 +14,13 @@ namespace GradeCalcWithCS
                     Name = "Mohamed Wesam Mohamed",
                     Subjects = new List<Subject>
                     {
-                        new Subject { Name = "Math", Mark = 200, CreditHours = 2.5},
-                        new Subject { Name = "Physics", Mark = 260, CreditHours = 3}
+                        new Subject { Name = "discrete math", Mark = 245, CreditHours = 3},
+                        new Subject { Name = "intro to programming", Mark = 180, CreditHours = 3},
+                        new Subject { Name = "math 1", Mark = 208, CreditHours = 3},
+                        new Subject { Name = "Analytic geometry", Mark = 158, CreditHours = 2.5},
+                        new Subject { Name = "algebra", Mark = 202, CreditHours = 2.5},
+                        new Subject { Name = "shit 1", Mark = 171, CreditHours = 2},
+                        new Subject { Name = "shit 2", Mark = 150, CreditHours = 2},
                     }
                 }
             };
@@ -43,20 +48,44 @@ namespace GradeCalcWithCS
                         }
                         else
                         {
-                            Console.WriteLine("=====================================");
-                            Console.WriteLine("All Students:");
-                            Console.WriteLine("=====================================");
+                            Console.WriteLine("\n===============================================");
+                            Console.WriteLine($"Total Students: {students.Count}");
+                            Console.WriteLine("Students Details: ");
+                            Console.WriteLine("===============================================");
+
+                            Console.WriteLine("Sort students by:");
+                            Console.WriteLine("1. GPA (highest first)");
+                            Console.WriteLine("2. Name (A–Z)");
+                            Console.Write("Choose an option: ");
+                            string sortChoice = Console.ReadLine()?.Trim() ?? "1";
+                            
+                            Console.WriteLine($"\n{"#", -3} {"Name",-25} {"GPA",-6} {"Percentage",-10}");
+                            Console.WriteLine("-----------------------------------------------");
+
+
+                            if (sortChoice == "1")
+                            {
+                                students = students.OrderByDescending(s => s.GetGPA()).ToList();
+                            }
+                            else if (sortChoice == "2")
+                            {
+                                students = students.OrderBy(s => s.Name).ToList();
+                            }
+
+                            int count = 1;
+
                             foreach (var student in students)
                             {
-                                Console.WriteLine($"→ {student.Name}    \nGPA: {student.GetGPA():F2}    \nTotal Percentage: {student.GetTotalPercentage():F2}%");
-                                Console.WriteLine("-------------------------------------");
+                                string gpaFormated = student.GetGPA().ToString("F2");
+                                string percentageFormated = student.GetTotalPercentage().ToString("F2");
+
+                                Console.WriteLine($"{count,-3} {student.Name,-25} {gpaFormated,-6} {percentageFormated}%");
+                                count++;
                             }
                         }
-                        Console.WriteLine("Press any key to return to the menu.");
+                        Console.WriteLine("\nPress any key to return to the menu.");
                         Console.ReadKey();
                         break;
-                    // sort by gpa or name | include total number of students | students numbering (advanced features)
-                    // Formating the output with better spcaing and alignemnt
                     case "2":
                         Console.Write("Enter your name: ");
                         string name = Console.ReadLine()?.Trim() ?? string.Empty;
@@ -67,7 +96,7 @@ namespace GradeCalcWithCS
                             if (student.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
                             {
                                 Console.WriteLine($"\nStudent: {student.Name}");
-                                Console.WriteLine($"Gpa: {student.GetGPA()}");
+                                Console.WriteLine($"Gpa: {student.GetGPA():F2}");
                                 Console.WriteLine($"Percentage: {student.GetTotalPercentage():F3}%");
                                 Console.WriteLine($"Subjects: ");
                                 foreach (var subject in student.Subjects)
@@ -91,7 +120,6 @@ namespace GradeCalcWithCS
                         Console.WriteLine("Student doesn't exist. Press any key to return to the main menu.");
                         Console.ReadKey();
                         }    
-                        // Formating the output with better spcaing and alignemnt
                         break;
                     case "3":
                         Console.WriteLine("Please enter you full name: ");
@@ -123,7 +151,9 @@ namespace GradeCalcWithCS
                         Console.WriteLine("Press any key to return to the menu.");
                         Console.ReadKey();
                         break;
+                        // handling the invalid inputs
                         // name and subject duplication check
+                        // capilzlize subjects and student names auto
                     case "4":
                         Console.WriteLine("Thank you for using the GPA Calculator. Goodbye!");
                         Console.WriteLine("Press any key to exit...");
@@ -145,7 +175,16 @@ namespace GradeCalcWithCS
 
         public double GetTotalPercentage()
         {
-            return Subjects.Count > 0 ? Subjects.Average(s => s.GetPercentage()) : 0;
+            double totalMarks = 0;
+            double totalCredits = 0;
+
+            foreach (var subject in Subjects)
+            {
+                totalMarks += subject.Mark;
+                totalCredits += subject.CreditHours;
+            }
+
+            return totalCredits > 0 ? totalMarks / totalCredits : 0;
         }
         public double GetGPA()
         {
@@ -173,28 +212,28 @@ namespace GradeCalcWithCS
         {
             double percentage = GetPercentage();
 
-            if (percentage >= 90) return "A+";
-            else if (percentage >= 85) return "A";
-            else if (percentage >= 80) return "B+";
-            else if (percentage >= 70) return "B";
-            else if (percentage >= 65) return "C+";
-            else if (percentage >= 60) return "C";
-            else if (percentage >= 55) return "D+";
-            else if (percentage >= 50) return "D";
-            else return "F";
+                if (percentage >= 90) return "A+";
+                else if (percentage >= 85) return "A";
+                else if (percentage >= 80) return "B+";
+                else if (percentage >= 75) return "B";
+                else if (percentage >= 70) return "C+";
+                else if (percentage >= 65) return "C";
+                else if (percentage >= 60) return "D";
+                else return "F";
 
         }
         public double GetGPAvalue()
         {
-            if (Mark >= 90) return 4.0;
-            else if (Mark >= 85) return 3.7;
-            else if (Mark >= 80) return 3.3;
-            else if (Mark >= 70) return 3.0;
-            else if (Mark >= 65) return 2.7;
-            else if (Mark >= 60) return 2.0;
-            else if (Mark >= 55) return 1.3;
-            else if (Mark >= 50) return 1.0;
-            else return 0.0;
+            double percentage = GetPercentage();
+
+            if (percentage >= 90) return 4.0;      
+            else if (percentage >= 85) return 3.7; 
+            else if (percentage >= 80) return 3.3; 
+            else if (percentage >= 75) return 3.0; 
+            else if (percentage >= 70) return 2.7; 
+            else if (percentage >= 65) return 2.3; 
+            else if (percentage >= 60) return 2.0; 
+            else return 0.0;    
         }
         public double GetPercentage()
         {
