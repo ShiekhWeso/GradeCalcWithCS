@@ -13,3 +13,4 @@ c:\!\Pr\CS\GradeCalcWithCS\obj\Debug\net9.0\refint\GradeCalcWithCS.dll
 c:\!\Pr\CS\GradeCalcWithCS\obj\Debug\net9.0\GradeCalcWithCS.pdb
 c:\!\Pr\CS\GradeCalcWithCS\obj\Debug\net9.0\GradeCalcWithCS.genruntimeconfig.cache
 c:\!\Pr\CS\GradeCalcWithCS\obj\Debug\net9.0\ref\GradeCalcWithCS.dll
+C:\!\Pr\CS\GradeCalcWithCS\bin\Debug\net9.0\students.json

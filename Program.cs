@@ -2,31 +2,19 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using System.IO;
+using System.Text.Json;
 
 namespace GradeCalcWithCS
 {
     class Program
     {
         static void Main()
-        {   
+        {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-            List<Student> students = new List<Student>
-            {
-                new Student
-                {
-                    Name = "Mohamed Wesam Mohamed",
-                    Subjects = new List<Subject>
-                    {
-                        new Subject { Name = "discrete math", Mark = 245, CreditHours = 3},
-                        new Subject { Name = "intro to programming", Mark = 180, CreditHours = 3},
-                        new Subject { Name = "math 1", Mark = 208, CreditHours = 3},
-                        new Subject { Name = "Analytic geometry", Mark = 158, CreditHours = 2.5},
-                        new Subject { Name = "algebra", Mark = 202, CreditHours = 2.5},
-                        new Subject { Name = "shit 1", Mark = 171, CreditHours = 2},
-                        new Subject { Name = "shit 2", Mark = 150, CreditHours = 2},
-                    }
-                }
-            };
+            string filePath = "students.json";
+
+            List<Student> students = LoadStudents(filePath);
 
             while (true)
             {
@@ -61,8 +49,8 @@ namespace GradeCalcWithCS
                             Console.WriteLine("2. Name (A–Z)");
                             Console.Write("Choose an option: ");
                             string sortChoice = Console.ReadLine()?.Trim() ?? "1";
-                            
-                            Console.WriteLine($"\n{"#", -3} {"Name",-25} {"GPA",-6} {"Percentage",-10}");
+
+                            Console.WriteLine($"\n{"#",-3} {"Name",-25} {"GPA",-6} {"Percentage",-10}");
                             Console.WriteLine("-----------------------------------------------");
 
 
@@ -120,9 +108,9 @@ namespace GradeCalcWithCS
                         }
                         if (found == false)
                         {
-                        Console.WriteLine("Student doesn't exist. Press any key to return to the main menu.");
-                        Console.ReadKey();
-                        }    
+                            Console.WriteLine("Student doesn't exist. Press any key to return to the main menu.");
+                            Console.ReadKey();
+                        }
                         break;
                     case "3":
                         string studentName;
@@ -145,7 +133,7 @@ namespace GradeCalcWithCS
                         {
                             Console.WriteLine("Student already exists. Please use a different name.");
                             Console.ReadKey();
-                            break; 
+                            break;
                         }
 
                         int subnums;
@@ -182,8 +170,8 @@ namespace GradeCalcWithCS
                             while (true)
                             {
                                 Console.WriteLine("Enter credit hours:");
-                                if (double.TryParse(Console.ReadLine(), out credit) && credit > 0) break;
-                                Console.WriteLine("Invalid input. Please enter a positive number.");
+                                if (double.TryParse(Console.ReadLine(), out credit) && credit > 0 && credit <= 4) break;
+                                Console.WriteLine("Invalid input. Please enter a positive number between 1 and 4.");
                             }
 
                             subjects.Add(new Subject { Name = subName, Mark = mark, CreditHours = credit });
@@ -191,6 +179,7 @@ namespace GradeCalcWithCS
 
                         Student newStudent = new Student { Name = studentName, Subjects = subjects };
                         students.Add(newStudent);
+                        SaveStudents(students, filePath);
 
                         Console.WriteLine("\nStudent added successfully!");
                         Console.WriteLine("Press any key to return to the menu.");
@@ -207,6 +196,20 @@ namespace GradeCalcWithCS
                         break;
                 }
             }
+        }
+        static void SaveStudents(List<Student> students, string filePath)
+        {
+            string json = JsonSerializer.Serialize(students, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(filePath, json);
+        }
+        static List<Student> LoadStudents(string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                string json = File.ReadAllText(filePath);
+                return JsonSerializer.Deserialize<List<Student>>(json) ?? new List<Student>();
+            }
+            return new List<Student>();
         }
     }
 
@@ -240,7 +243,7 @@ namespace GradeCalcWithCS
                 totalCredits += subject.CreditHours;
             }
 
-            return totalCredits > 0 ? totalPoints / totalCredits : 0; 
+            return totalCredits > 0 ? totalPoints / totalCredits : 0;
         }
     }
 
@@ -254,28 +257,28 @@ namespace GradeCalcWithCS
         {
             double percentage = GetPercentage();
 
-                if (percentage >= 90) return "A+";
-                else if (percentage >= 85) return "A";
-                else if (percentage >= 80) return "B+";
-                else if (percentage >= 75) return "B";
-                else if (percentage >= 70) return "C+";
-                else if (percentage >= 65) return "C";
-                else if (percentage >= 60) return "D";
-                else return "F";
+            if (percentage >= 90) return "A+";
+            else if (percentage >= 85) return "A";
+            else if (percentage >= 80) return "B+";
+            else if (percentage >= 75) return "B";
+            else if (percentage >= 70) return "C+";
+            else if (percentage >= 65) return "C";
+            else if (percentage >= 60) return "D";
+            else return "F";
 
         }
         public double GetGPAvalue()
         {
             double percentage = GetPercentage();
 
-            if (percentage >= 90) return 4.0;      
-            else if (percentage >= 85) return 3.7; 
-            else if (percentage >= 80) return 3.3; 
-            else if (percentage >= 75) return 3.0; 
-            else if (percentage >= 70) return 2.7; 
-            else if (percentage >= 65) return 2.3; 
-            else if (percentage >= 60) return 2.0; 
-            else return 0.0;    
+            if (percentage >= 90) return 4.0;
+            else if (percentage >= 85) return 3.7;
+            else if (percentage >= 80) return 3.3;
+            else if (percentage >= 75) return 3.0;
+            else if (percentage >= 70) return 2.7;
+            else if (percentage >= 65) return 2.3;
+            else if (percentage >= 60) return 2.0;
+            else return 0.0;
         }
         public double GetPercentage()
         {
@@ -283,5 +286,4 @@ namespace GradeCalcWithCS
         }
     }
 }    
-// file handling
 // GUI
