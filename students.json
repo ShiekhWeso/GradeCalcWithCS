@@ -2,13 +2,71 @@
   {
     "Name": "Mohamed Wesam Mohamed",
     "Subjects": [
-      { "Name": "Discrete Math", "Mark": 245, "CreditHours": 3 },
-      { "Name": "Intro to Programming", "Mark": 180, "CreditHours": 3 },
-      { "Name": "Math 1", "Mark": 208, "CreditHours": 3 },
-      { "Name": "Analytic Geometry", "Mark": 158, "CreditHours": 2.5 },
-      { "Name": "Algebra", "Mark": 202, "CreditHours": 2.5 },
-      { "Name": "Physics", "Mark": 171, "CreditHours": 2 },
-      { "Name": "Chemistry", "Mark": 150, "CreditHours": 2 }
+      {
+        "Name": "Discrete Math",
+        "Mark": 245,
+        "CreditHours": 3
+      },
+      {
+        "Name": "Intro to Programming",
+        "Mark": 180,
+        "CreditHours": 3
+      },
+      {
+        "Name": "Math 1",
+        "Mark": 208,
+        "CreditHours": 3
+      },
+      {
+        "Name": "Analytic Geometry",
+        "Mark": 158,
+        "CreditHours": 2.5
+      },
+      {
+        "Name": "Algebra",
+        "Mark": 202,
+        "CreditHours": 2.5
+      },
+      {
+        "Name": "Physics",
+        "Mark": 171,
+        "CreditHours": 2
+      },
+      {
+        "Name": "Chemistry",
+        "Mark": 150,
+        "CreditHours": 2
+      }
+    ]
+  },
+  {
+    "Name": "Ali Ahmed",
+    "Subjects": [
+      {
+        "Name": "Math 1",
+        "Mark": 250,
+        "CreditHours": 3
+      },
+      {
+        "Name": "Mechanics",
+        "Mark": 300,
+        "CreditHours": 4
+      },
+      {
+        "Name": "Ai",
+        "Mark": 180,
+        "CreditHours": 2.5
+      },
+      {
+        "Name": "English",
+        "Mark": 200,
+        "CreditHours": 2
+      },
+      {
+        "Name": "Introduction To Programming",
+        "Mark": 180,
+        "CreditHours": 3
+      }
     ]
   }
 ]

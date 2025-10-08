@@ -23,7 +23,9 @@ namespace GradeCalcWithCS
                 Console.WriteLine("1. View all students:");
                 Console.WriteLine("2. View your details:");
                 Console.WriteLine("3. Add a new student");
-                Console.WriteLine("4. Exit");
+                Console.WriteLine("4. Edit a student");
+                Console.WriteLine("5. Delete a student");
+                Console.WriteLine("6. Exit");
                 Console.Write("Choose an option: ");
 
                 string choice = Console.ReadLine() ?? string.Empty;
@@ -186,6 +188,10 @@ namespace GradeCalcWithCS
                         Console.ReadKey();
                         break;
                     case "4":
+                        break;
+                    case "5":
+                        break;
+                    case "6":
                         Console.WriteLine("Thank you for using the GPA Calculator. Goodbye!");
                         Console.WriteLine("Press any key to exit...");
                         Console.ReadKey();
