@@ -34,8 +34,8 @@
       },
       {
         "Name": "Chemistry",
-        "Mark": 150,
-        "CreditHours": 2
+        "Mark": 220,
+        "CreditHours": 3
       }
     ]
   },
@@ -59,8 +59,8 @@
       },
       {
         "Name": "English",
-        "Mark": 200,
-        "CreditHours": 2
+        "Mark": 4,
+        "CreditHours": 0
       },
       {
         "Name": "Introduction To Programming",
