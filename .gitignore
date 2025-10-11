@@ -3,3 +3,8 @@
 .vs/GradeCalcWithCS/FileContentIndex/a5d5c6e3-c9ac-4182-b069-f50d5b02a387.vsidx
 .vs/GradeCalcWithCS/FileContentIndex/1682916e-593d-48bf-b0e6-c45af3b1c370.vsidx
 *.vsidx
+bin
+.vs
+.vscode
+students.json
+.dist

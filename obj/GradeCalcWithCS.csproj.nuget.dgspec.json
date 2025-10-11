@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS.csproj": {}
+    "c:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS.csproj": {}
   },
   "projects": {
-    "C:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS.csproj": {
+    "c:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS.csproj",
+        "projectUniqueName": "c:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS.csproj",
         "projectName": "GradeCalcWithCS",
-        "projectPath": "C:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS.csproj",
+        "projectPath": "c:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS.csproj",
         "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
-        "outputPath": "C:\\!\\Pr\\CS\\GradeCalcWithCS\\obj\\",
+        "outputPath": "c:\\!\\Pr\\CS\\GradeCalcWithCS\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
