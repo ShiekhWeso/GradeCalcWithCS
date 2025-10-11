@@ -46,11 +46,18 @@ namespace GradeCalcWithCS
                             Console.WriteLine("Students Details: ");
                             Console.WriteLine("===============================================");
 
-                            Console.WriteLine("Sort students by:");
+                            Console.WriteLine("\nSort students by:");
                             Console.WriteLine("1. GPA (highest first)");
                             Console.WriteLine("2. Name (A–Z)");
-                            Console.Write("Choose an option: ");
-                            string sortChoice = Console.ReadLine()?.Trim() ?? "1";
+
+                            string sortChoice;
+                            while (true)
+                            {
+                                Console.Write("Choose an option (1 or 2): ");
+                                sortChoice = Console.ReadLine()?.Trim() ?? "";
+                                if (sortChoice == "1" || sortChoice == "2") break;
+                                Console.WriteLine("Invalid choice. Please enter 1 or 2.\n");
+                            }
 
                             Console.WriteLine($"\n{"#",-3} {"Name",-25} {"GPA",-6} {"Percentage",-10}");
                             Console.WriteLine("-----------------------------------------------");
@@ -80,8 +87,24 @@ namespace GradeCalcWithCS
                         Console.ReadKey();
                         break;
                     case "2":
-                        Console.Write("Enter your name: ");
-                        string name = Console.ReadLine()?.Trim() ?? string.Empty;
+                        string name;
+                        while (true)
+                        {
+                            Console.WriteLine("Enter your name (or type 'cancel' to leave): ");
+                            name = Console.ReadLine()?.Trim() ?? "";
+
+                            if (Regex.IsMatch(name, @"[a-zA-Z\s]+$"))
+                            {
+                                name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name.ToLower());
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid name. Use letters only, no numbers or symbols.\n");
+                            }
+                        }
+
+                        if (name.ToLower() == "cancel") break;
 
                         bool found = false;
                         foreach (var student in students)
@@ -150,8 +173,19 @@ namespace GradeCalcWithCS
 
                         for (int i = 0; i < subnums; i++)
                         {
-                            Console.WriteLine("\nEnter subject name:");
-                            string subName = Console.ReadLine()?.Trim() ?? string.Empty;
+                            string subName;
+                            while (true)
+                            {
+                                Console.WriteLine("\nEnter subject name:");
+                                subName = Console.ReadLine()?.Trim() ?? string.Empty;
+                                if (!Regex.IsMatch(subName, @"^[a-zA-Z0-9\s]+$"))
+                                {
+                                    Console.WriteLine("Invalid subject name. Use letters only.\n");
+                                    i--;
+                                    continue;
+                                }
+                                break;
+                            }
                             subName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(subName.ToLower());
                             if (subjects.Any(s => s.Name.Equals(subName, StringComparison.OrdinalIgnoreCase)))
                             {
@@ -160,20 +194,20 @@ namespace GradeCalcWithCS
                                 continue;
                             }
 
-                            double mark;
-                            while (true)
-                            {
-                                Console.Write("Enter mark: ");
-                                if (double.TryParse(Console.ReadLine(), out mark)) break;
-                                Console.WriteLine("Invalid input. Please enter a valid number.\n");
-                            }
-
                             double credit;
                             while (true)
                             {
                                 Console.WriteLine("Enter credit hours:");
                                 if (double.TryParse(Console.ReadLine(), out credit) && credit > 0 && credit <= 4) break;
                                 Console.WriteLine("Invalid input. Please enter a positive number between 1 and 4.\n");
+                            }
+
+                            double mark;
+                            while (true)
+                            {
+                                Console.Write("Enter mark: ");
+                                if (double.TryParse(Console.ReadLine(), out mark) && mark > 0 && mark < credit * 100) break;
+                                Console.WriteLine($"Invalid input. Please enter a positive number between 0 and {credit * 100}.\n");
                             }
 
                             subjects.Add(new Subject { Name = subName, Mark = mark, CreditHours = credit });
@@ -230,20 +264,20 @@ namespace GradeCalcWithCS
                                         Console.WriteLine("Invalid input. Please enter a valid number.\n");
                                     }
                             
-                                    double newMark;
-                                    while (true)
-                                    {
-                                        Console.WriteLine($"Enter the new mark of subject '{student.Subjects[subjectIndex - 1].Name}': ");
-                                        if (double.TryParse(Console.ReadLine(), out newMark)) break;
-                                        Console.WriteLine("Invalid input. Please enter a valid number.\n");
-                                    }
-
                                     double newHours;
                                     while (true)
                                     {
                                         Console.WriteLine("Enter newHours hours:");
                                         if (double.TryParse(Console.ReadLine(), out newHours) && newHours > 0 && newHours <= 4) break;
                                         Console.WriteLine("Invalid input. Please enter a positive number between 1 and 4.\n");
+                                    }
+
+                                    double newMark;
+                                    while (true)
+                                    {
+                                        Console.WriteLine($"Enter the new mark of subject '{student.Subjects[subjectIndex - 1].Name}': ");
+                                        if (double.TryParse(Console.ReadLine(), out newMark) && newMark > 0 && newMark < newHours * 100) break;
+                                        Console.WriteLine($"Invalid input. Please enter a positive number between 0 and {newHours * 100}.\n");
                                     }
 
                                     student.Subjects[subjectIndex - 1].Mark = newMark;
@@ -265,7 +299,43 @@ namespace GradeCalcWithCS
                         }
                         break;
                     case "5":
-                        // delete student 
+                        while (true)
+                        {
+                            string delName;
+                            while (true)
+                            {
+                                Console.WriteLine("Enter the name to be deleted (or type 'cancel' to leave): ");
+                                delName = Console.ReadLine()?.Trim() ?? "";
+
+                                if (Regex.IsMatch(delName, @"[a-zA-Z\s]+$"))
+                                {
+                                    delName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(delName.ToLower());
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Invalid name. Use letters only, no numbers or symbols.\n");
+                                }
+                            }
+
+                            if (delName.ToLower() == "cancel") break;
+
+                            var student = students.FirstOrDefault(s => s.Name.Equals(delName, StringComparison.OrdinalIgnoreCase));
+                            if (student != null)
+                            {
+                                while (true)
+                                {
+                                    students.Remove(student);
+                                    SaveStudents(students, filePath);
+                                    Console.WriteLine($"Student '{delName}' has been deleted successfully.\n");
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Student '{delName}' doesn't exist. Try again.\n");
+                            }
+                        }
                         break;
                     case "6":
                         Console.WriteLine("Thank you for using the GPA Calculator. Goodbye!");
