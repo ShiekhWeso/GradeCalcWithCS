@@ -8,3 +8,4 @@ bin
 .vscode
 students.json
 .dist
+GradeCalcWithCS.GUI\bin
