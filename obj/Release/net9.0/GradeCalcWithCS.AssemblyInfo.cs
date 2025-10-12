@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GradeCalcWithCS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+90792036a0b8d530a59c51930c0ca252e1c90a10")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8ff59f634a4f55a27848ff04c69bc5f7bde4b043")]
 [assembly: System.Reflection.AssemblyProductAttribute("GradeCalcWithCS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GradeCalcWithCS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
