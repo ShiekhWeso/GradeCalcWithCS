@@ -1,11 +1,13 @@
-using system.collections.generic;
+using System.Collections.Generic;
 
 namespace GradeCalcWithCS.Models
 {
-    puplic class Student
+    public class Student
     {
         public required string Name { get; set; }
         public List<Subject> Subjects { get; set; } = new List<Subject>();
+        public double GPA => GetGPA();
+        public double TotalPercentage => GetTotalPercentage();
 
         public double GetTotalPercentage()
         {
@@ -33,5 +35,7 @@ namespace GradeCalcWithCS.Models
             }
 
             return totalCredits > 0 ? totalPoints / totalCredits : 0;
+
         }
+    }
 }

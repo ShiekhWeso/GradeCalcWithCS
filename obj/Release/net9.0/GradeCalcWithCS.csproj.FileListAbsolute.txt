@@ -1,7 +1,0 @@
-C:\!\Pr\CS\GradeCalcWithCS\obj\Release\net9.0\GradeCalcWithCS.GradeCalcWithCS.GUI.Properties.Resources.resources
-C:\!\Pr\CS\GradeCalcWithCS\obj\Release\net9.0\GradeCalcWithCS.csproj.GenerateResource.cache
-C:\!\Pr\CS\GradeCalcWithCS\obj\Release\net9.0\GradeCalcWithCS.GeneratedMSBuildEditorConfig.editorconfig
-C:\!\Pr\CS\GradeCalcWithCS\obj\Release\net9.0\GradeCalcWithCS.AssemblyInfoInputs.cache
-C:\!\Pr\CS\GradeCalcWithCS\obj\Release\net9.0\GradeCalcWithCS.AssemblyInfo.cs
-C:\!\Pr\CS\GradeCalcWithCS\obj\Release\net9.0\GradeCalcWithCS.csproj.CoreCompileInputs.cache
-C:\!\Pr\CS\GradeCalcWithCS\obj\Release\net9.0\GradeCalcWithCS.sourcelink.json
