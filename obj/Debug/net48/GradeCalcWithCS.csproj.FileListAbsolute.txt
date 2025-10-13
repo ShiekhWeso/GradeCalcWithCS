@@ -1,8 +1,0 @@
-C:\!\Pr\CS\GradeCalcWithCS\obj\Debug\net48\GradeCalcWithCS.csproj.AssemblyReference.cache
-C:\!\Pr\CS\GradeCalcWithCS\obj\Debug\net48\GradeCalcWithCS.GradeCalcWithCS.GUI.Properties.Resources.resources
-C:\!\Pr\CS\GradeCalcWithCS\obj\Debug\net48\GradeCalcWithCS.csproj.GenerateResource.cache
-C:\!\Pr\CS\GradeCalcWithCS\obj\Debug\net48\GradeCalcWithCS.GeneratedMSBuildEditorConfig.editorconfig
-C:\!\Pr\CS\GradeCalcWithCS\obj\Debug\net48\GradeCalcWithCS.AssemblyInfoInputs.cache
-C:\!\Pr\CS\GradeCalcWithCS\obj\Debug\net48\GradeCalcWithCS.AssemblyInfo.cs
-C:\!\Pr\CS\GradeCalcWithCS\obj\Debug\net48\GradeCalcWithCS.csproj.CoreCompileInputs.cache
-C:\!\Pr\CS\GradeCalcWithCS\obj\Debug\net48\GradeCalcWithCS.sourcelink.json
