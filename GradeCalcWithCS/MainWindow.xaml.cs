@@ -14,16 +14,15 @@ namespace GradeCalcWithCS
             window.ShowDialog();
         }
 
+        private void SearchStudent_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new SearchStudentWindow();
+            window.ShowDialog();
+        }
 
         private void AddStudent_Click(object sender, RoutedEventArgs e)
         {
             var window = new AddStudentWindow();
-            window.ShowDialog();
-        }
-
-        private void SearchStudent_Click(object sender, RoutedEventArgs e)
-        {
-            var window = new SearchStudentWindow();
             window.ShowDialog();
         }
 

@@ -1,0 +1,21 @@
+﻿<Window x:Class="GradeCalcWithCS.DeleteStudentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GradeCalcWithCS"
+        mc:Ignorable="d"
+        Title="DeleteStudentWindow" Height="450" Width="800">
+    <Grid Margin="20">
+        <StackPanel>
+            <TextBlock Text="Delete Student by Name" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+
+            <TextBox Name="DeleteInput" Margin="0,0,0,10" ToolTip="Enter student name to delete"/>
+
+            <Button Content="Delete" Click="Delete_Click" Width="100" Background="Red" Foreground="White"/>
+
+            <TextBlock Name="StatusMessage" Margin="10,20,0,0" FontWeight="SemiBold"/>
+        </StackPanel>
+    </Grid>
+
+</Window>
