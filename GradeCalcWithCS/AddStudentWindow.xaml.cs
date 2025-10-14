@@ -73,7 +73,7 @@ namespace GradeCalcWithCS
 
             var student = new Student { Name = name, Subjects = subjects };
 
-            string filePath = "students.json";
+            string filePath = "C:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS\\students.json";
             List<Student> students = File.Exists(filePath)
                 ? JsonSerializer.Deserialize<List<Student>>(File.ReadAllText(filePath)) ?? new List<Student>()
                 : new List<Student>();

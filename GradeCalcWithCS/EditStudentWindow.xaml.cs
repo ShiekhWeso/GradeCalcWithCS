@@ -21,7 +21,7 @@ namespace GradeCalcWithCS
 
         private void LoadStudents()
         {
-            string filePath = "students.json";
+            string filePath = "C:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS\\students.json";
             if (File.Exists(filePath))
             {
                 string json = File.ReadAllText(filePath);

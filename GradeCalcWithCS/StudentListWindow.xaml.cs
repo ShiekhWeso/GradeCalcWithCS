@@ -1,5 +1,10 @@
-﻿using System;
+﻿using GradeCalcWithCS;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -11,39 +16,43 @@ namespace GradeCalcWithCS
 {
     public partial class StudentListWindow : Window
     {
-        private List<Student> students = new List<Student>();
+        private readonly ICollectionView _view;
+        private ObservableCollection<Student> students = new ObservableCollection<Student>();
 
         public StudentListWindow()
         {
             InitializeComponent();
             LoadStudents();
             DisplayStudents();
+            for (int i = 0; i < students.Count(); i++)
+            {
+                students[i] = new Student
+                {
+                    Name = students[i].Name,
+                    GPA = SafeGPA(students[i]),
+                    Percentage = SafePercentage(students[i]).ToString("F2") + "%"
+                };
+            }
+            StudentListView.ItemsSource = students;
+
+            _view = CollectionViewSource.GetDefaultView(StudentListView.ItemsSource);
+            _view.SortDescriptions.Add(new SortDescription("GPA" , ListSortDirection.Descending));
         }
 
         private void LoadStudents()
         {
-            try
+            string filePath = "C:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS\\students.json";
+            if (File.Exists(filePath))
             {
-                string filePath = "students.json";
-                if (File.Exists(filePath))
-                {
-                    string json = File.ReadAllText(filePath);
-                    students = JsonSerializer.Deserialize<List<Student>>(json) ?? new List<Student>();
-                }
-                else
-                {
-                    students = new List<Student>();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading students: " + ex.Message);
-                students = new List<Student>();
+                string json = File.ReadAllText(filePath);
+                students = JsonSerializer.Deserialize<ObservableCollection<Student>>(json) ?? new ObservableCollection<Student>();
             }
         }
 
         private void DisplayStudents()
         {
+            if (_view == null) return;
+
             if (SortOption == null)
             {
                 MessageBox.Show("SortOption is not initialized.");
@@ -51,20 +60,11 @@ namespace GradeCalcWithCS
             }
 
             int sortIndex = SortOption.SelectedIndex;
-
-            var sorted = sortIndex == 1
-                ? students.OrderBy(s => s.Name).ToList()
-                : students.OrderByDescending(s => SafeGPA(s)).ToList();
-
-            var displayList = sorted.Select((s, i) => new
+            using (_view.DeferRefresh())
             {
-                Index = i + 1,
-                Name = s.Name,
-                GPA = SafeGPA(s).ToString("F2"),
-                Percentage = SafePercentage(s).ToString("F2") + "%"
-            }).ToList();
-
-            //StudentListView.ItemsSource = displayList;
+                _view.SortDescriptions.Clear();
+                _view.SortDescriptions.Add(new SortDescription(sortIndex == 1 ? "Name" : "GPA", sortIndex == 1 ? ListSortDirection.Ascending : ListSortDirection.Descending));
+            }
         }
 
         private double SafeGPA(Student s)

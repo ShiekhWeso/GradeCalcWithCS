@@ -9,6 +9,8 @@ namespace GradeCalcWithCS
     public class Student
     {
         public  string Name { get; set; } = string.Empty;
+        public double GPA { get; set; } = 0.00;
+        public string Percentage { get; set; } = "0.00%";
         public List<Subject> Subjects { get; set; } = new List<Subject>();
 
         public double GetTotalPercentage()
