@@ -68,7 +68,7 @@ namespace GradeCalcWithCS {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/GradeCalcWithCS;component/deletestudentwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/GradeManager;component/deletestudentwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\DeleteStudentWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
