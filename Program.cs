@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using System.IO;
-using System.Text.Json;
+using System.Text.Json; 
 
 namespace GradeCalcWithCS
 {
@@ -206,7 +206,7 @@ namespace GradeCalcWithCS
                             while (true)
                             {
                                 Console.Write("Enter mark: ");
-                                if (double.TryParse(Console.ReadLine(), out mark) && mark > 0 && mark < credit * 100) break;
+                                if (double.TryParse(Console.ReadLine(), out mark) && mark >= 0 && mark <= credit * 100) break;
                                 Console.WriteLine($"Invalid input. Please enter a positive number between 0 and {credit * 100}.\n");
                             }
 
@@ -276,7 +276,7 @@ namespace GradeCalcWithCS
                                     while (true)
                                     {
                                         Console.WriteLine($"Enter the new mark of subject '{student.Subjects[subjectIndex - 1].Name}': ");
-                                        if (double.TryParse(Console.ReadLine(), out newMark) && newMark > 0 && newMark < newHours * 100) break;
+                                        if (double.TryParse(Console.ReadLine(), out newMark) && newMark >= 0 && newMark <= newHours * 100) break;
                                         Console.WriteLine($"Invalid input. Please enter a positive number between 0 and {newHours * 100}.\n");
                                     }
 

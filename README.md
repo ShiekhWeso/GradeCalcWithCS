@@ -26,14 +26,9 @@ Welcome to **GradeCalcWithCS**, a C# console application that helps students tra
 ---
 
 ## How to Run
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/ShiekhWeso/GradeCalcWithCS.git
-2.
-   ```bash
-   cd GradeCalcWithCS
-3. build the app
-   ```bash
-   dotnet publish -p:PublishSingleFile=true --self-contained
-
+```bash
+git clone https://github.com/ShiekhWeso/GradeCalcWithCS
+cd GradeCalcWithCS
+dotnet publish -p:PublishSingleFile=true --self-contained
+```
+the executable will be in `bin/Release/net9.0/publish/`

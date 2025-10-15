@@ -1,0 +1,11 @@
+.vs/GradeCalcWithCS/FileContentIndex/8b21f1ed-c007-417f-bd33-4f130aad40fa.vsidx
+.vs/GradeCalcWithCS/FileContentIndex/99df15f3-b71e-4e70-a3b2-a2f6df9c0ab5.vsidx
+.vs/GradeCalcWithCS/FileContentIndex/a5d5c6e3-c9ac-4182-b069-f50d5b02a387.vsidx
+.vs/GradeCalcWithCS/FileContentIndex/1682916e-593d-48bf-b0e6-c45af3b1c370.vsidx
+*.vsidx
+bin
+.vs
+.vscode
+students.json
+.dist
+GradeCalcWithCS.GUI\bin
