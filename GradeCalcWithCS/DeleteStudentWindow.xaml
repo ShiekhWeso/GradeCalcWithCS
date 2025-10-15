@@ -10,7 +10,7 @@
         <StackPanel>
             <TextBlock Text="Delete Student by Name" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
 
-            <TextBox Name="DeleteInput" Margin="0,0,0,10" ToolTip="Enter student name to delete"/>
+            <TextBox Name="DeleteInput" Margin="0,0,0,10" Background="#FFCCCCCC" Foreground="Black" FontWeight="SemiBold" ToolTip="Enter student name to delete"/>
 
             <Button Content="Delete" Click="Delete_Click" Width="100" Background="Red" Foreground="White"/>
 

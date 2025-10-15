@@ -10,7 +10,7 @@
         <StackPanel Margin="20">
             <TextBlock Text="Edit Student" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
 
-            <TextBox Name="SearchInput" Margin="0,0,0,10" ToolTip="Enter student name to edit"/>
+            <TextBox Name="SearchInput" Margin="0,0,0,10" Background="#FFCCCCCC" Foreground="Black" FontWeight="SemiBold" ToolTip="Enter student name to edit"/>
 
             <Button Content="Load Student" Click="LoadStudent_Click" Width="120" Background="#FF2196F3" Foreground="White"/>
 

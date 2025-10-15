@@ -16,13 +16,19 @@ namespace GradeCalcWithCS
 {
     public partial class StudentListWindow : Window
     {
-        private readonly ICollectionView _view;
+        private ICollectionView _view;
         private ObservableCollection<Student> students = new ObservableCollection<Student>();
 
         public StudentListWindow()
         {
             InitializeComponent();
             LoadStudents();
+            if (students.Count == 0)
+            {
+                this.Close();
+                return;
+            }
+
             DisplayStudents();
             for (int i = 0; i < students.Count(); i++)
             {
@@ -42,10 +48,37 @@ namespace GradeCalcWithCS
         private void LoadStudents()
         {
             string filePath = "C:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS\\students.json";
+
             if (File.Exists(filePath))
             {
                 string json = File.ReadAllText(filePath);
-                students = JsonSerializer.Deserialize<ObservableCollection<Student>>(json) ?? new ObservableCollection<Student>();
+
+                if (string.IsNullOrWhiteSpace(json))
+                {
+                    MessageBox.Show("Student file is empty. Please add a student first.");
+                    students = new ObservableCollection<Student>();
+                    return;
+                }
+
+                try
+                {
+                    students = JsonSerializer.Deserialize<ObservableCollection<Student>>(json) ?? new ObservableCollection<Student>();
+
+                    if (students.Count == 0)
+                    {
+                        MessageBox.Show("No students found. Please add a student first.");
+                    }
+                }
+                catch (JsonException)
+                {
+                    MessageBox.Show("Student file is corrupted or invalid. Please fix or delete the file.");
+                    students = new ObservableCollection<Student>();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Student file not found. Please add a student first.");
+                students = new ObservableCollection<Student>();
             }
         }
 
@@ -75,6 +108,21 @@ namespace GradeCalcWithCS
         private double SafePercentage(Student s)
         {
             return s?.Subjects?.Count > 0 ? s.GetTotalPercentage() : 0;
+        }
+
+        private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            LoadStudents();
+
+            for (int i = 0; i < students.Count; i++)
+            {
+                students[i].GPA = SafeGPA(students[i]);
+                students[i].Percentage = SafePercentage(students[i]).ToString("F2") + "%";
+            }
+
+            StudentListView.ItemsSource = students;
+            _view = CollectionViewSource.GetDefaultView(StudentListView.ItemsSource);
+            DisplayStudents();
         }
 
         private void SortOption_Changed(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

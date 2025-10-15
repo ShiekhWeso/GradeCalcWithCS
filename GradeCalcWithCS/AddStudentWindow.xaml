@@ -11,10 +11,10 @@
             <TextBlock Text="Add New Student" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
 
             <TextBlock Text="Student Name:"/>
-            <TextBox Name="NameInput" Margin="0,5"/>
+            <TextBox Name="NameInput" Margin="0,5" Background="#FFCCCCCC" Foreground="Black" FontWeight="SemiBold"/>
 
-            <TextBlock Text="Number of Subjects:"/>
-            <TextBox Name="SubjectCountInput" Margin="0,5"/>
+            <TextBlock Text="Number of Subjects:" />
+            <TextBox Name="SubjectCountInput" Margin="0,5" Background="#FFCCCCCC" Foreground="Black" FontWeight="SemiBold"/>
 
             <Button Content="Generate Subject Fields" Click="GenerateFields_Click" Margin="0,10" Background="#FF4CAF50" Foreground="White"/>
 

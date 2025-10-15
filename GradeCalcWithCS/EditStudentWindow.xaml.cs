@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,11 +14,15 @@ namespace GradeCalcWithCS
     {
         private List<Student> students = new List<Student>();
         private Student currentStudent;
-        private int currentIndex;
+        private bool changesSaved = false;
+
+        private List<TextBox> markBoxes = new List<TextBox>();
+        private List<TextBox> creditBoxes = new List<TextBox>();
 
         public EditStudentWindow()
         {
             InitializeComponent();
+            this.Closing += EditStudentWindow_Closing;
             LoadStudents();
         }
 
@@ -31,40 +38,59 @@ namespace GradeCalcWithCS
 
         private void LoadStudent_Click(object sender, RoutedEventArgs e)
         {
-            string name = SearchInput.Text.Trim().ToLower();
-            currentIndex = students.FindIndex(s => s.Name.ToLower() == name);
+            string name = SearchInput.Text.Trim();
 
-            EditPanel.Children.Clear();
-
-            if (currentIndex == -1)
+            if (name.ToLower() == "cancel")
             {
-                MessageBox.Show("Student not found.");
+                this.Close();
                 return;
             }
 
-            currentStudent = students[currentIndex];
-
-            EditPanel.Children.Add(new TextBlock
+            if (!Regex.IsMatch(name, @"^[a-zA-Z\s]+$"))
             {
-                Text = $"Editing: {currentStudent.Name}",
-                FontSize = 16,
-                FontWeight = FontWeights.Bold,
-                Margin = new Thickness(0, 0, 0, 10)
-            });
+                MessageBox.Show("Invalid name. Use letters only.");
+                return;
+            }
+
+            name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name.ToLower());
+
+            currentStudent = students.FirstOrDefault(s => s.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+
+            if (currentStudent == null)
+            {
+                MessageBox.Show($"Student '{name}' doesn't exist.");
+                return;
+            }
+
+            DisplaySubjects();
+        }
+
+        private void DisplaySubjects()
+        {
+            EditPanel.Children.Clear();
+            markBoxes.Clear();
+            creditBoxes.Clear();
 
             for (int i = 0; i < currentStudent.Subjects.Count; i++)
             {
                 var subject = currentStudent.Subjects[i];
                 var group = new StackPanel { Margin = new Thickness(0, 10, 0, 10) };
 
-                group.Children.Add(new TextBlock { Text = $"Subject {i + 1} Name:" });
-                group.Children.Add(new TextBox { Name = $"SubName{i}", Text = subject.Name });
+                group.Children.Add(new TextBlock
+                {
+                    Text = $"{i + 1}. {subject.Name}",
+                    FontWeight = FontWeights.Bold
+                });
 
                 group.Children.Add(new TextBlock { Text = "Mark:" });
-                group.Children.Add(new TextBox { Name = $"SubMark{i}", Text = subject.Mark.ToString() });
+                var markBox = new TextBox { Text = subject.Mark.ToString() };
+                markBoxes.Add(markBox);
+                group.Children.Add(markBox);
 
                 group.Children.Add(new TextBlock { Text = "Credit Hours:" });
-                group.Children.Add(new TextBox { Name = $"SubCredit{i}", Text = subject.CreditHours.ToString() });
+                var creditBox = new TextBox { Text = subject.CreditHours.ToString() };
+                creditBoxes.Add(creditBox);
+                group.Children.Add(creditBox);
 
                 EditPanel.Children.Add(group);
             }
@@ -72,34 +98,50 @@ namespace GradeCalcWithCS
 
         private void SaveChanges_Click(object sender, RoutedEventArgs e)
         {
-            if (currentStudent == null) return;
-
-            var updatedSubjects = new List<Subject>();
-
             for (int i = 0; i < currentStudent.Subjects.Count; i++)
             {
-                string subName = ((TextBox)FindName($"SubName{i}"))?.Text.Trim() ?? "";
-                string markText = ((TextBox)FindName($"SubMark{i}"))?.Text.Trim() ?? "";
-                string creditText = ((TextBox)FindName($"SubCredit{i}"))?.Text.Trim() ?? "";
+                string markText = markBoxes[i].Text.Trim();
+                string creditText = creditBoxes[i].Text.Trim();
 
-                if (string.IsNullOrWhiteSpace(subName) ||
-                    !double.TryParse(markText, out double mark) ||
-                    !double.TryParse(creditText, out double credit))
+                if (!double.TryParse(creditText, out double credit) || credit <= 0 || credit > 4)
                 {
-                    MessageBox.Show($"Invalid input for subject {i + 1}. Please check all fields.");
+                    MessageBox.Show($"Invalid credit hours for subject {currentStudent.Subjects[i].Name}. Must be between 1 and 4.");
                     return;
                 }
 
-                updatedSubjects.Add(new Subject { Name = subName, Mark = mark, CreditHours = credit });
+                if (!double.TryParse(markText, out double mark) || mark < 0 || mark > credit * 100)
+                {
+                    MessageBox.Show($"Invalid mark for subject {currentStudent.Subjects[i].Name}. Must be between 0 and {credit * 100}.");
+                    return;
+                }
+
+                currentStudent.Subjects[i].CreditHours = credit;
+                currentStudent.Subjects[i].Mark = mark;
             }
 
-            currentStudent.Subjects = updatedSubjects;
-            students[currentIndex] = currentStudent;
+            string filePath = "C:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS\\students.json";
+            File.WriteAllText(filePath, JsonSerializer.Serialize(students, new JsonSerializerOptions { WriteIndented = true }));
 
-            File.WriteAllText("students.json", JsonSerializer.Serialize(students, new JsonSerializerOptions { WriteIndented = true }));
-
+            changesSaved = true;
             MessageBox.Show("Student updated successfully!");
             this.Close();
+        }
+
+        private void EditStudentWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!changesSaved && currentStudent != null)
+            {
+                var result = MessageBox.Show(
+                    "You haven't saved your changes. Are you sure you want to exit?",
+                    "Unsaved Changes",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }

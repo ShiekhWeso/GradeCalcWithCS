@@ -7,15 +7,17 @@
         mc:Ignorable="d"
         Title="SearchStudentWindow" Height="450" Width="800">
     <Grid Margin="20">
-        <StackPanel>
-            <TextBlock Text="Search Student by Name" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock Text="Search Student by Name" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
 
-            <TextBox Name="SearchInput" Margin="0,0,0,10" Background="#FFCCCCCC" Foreground="Black" FontWeight="SemiBold" ToolTip="Enter student name"/>
+                <TextBox Name="SearchInput" Margin="0,0,0,10" Background="#FFCCCCCC" Foreground="Black" FontWeight="SemiBold" ToolTip="Enter student name"/>
 
-            <Button Content="Search" Click="Search_Click" Width="100" Background="#FF2196F3" Foreground="White"/>
+                <Button Content="Search" Click="Search_Click" Width="100" Background="#FF2196F3" Foreground="White"/>
 
-            <StackPanel Name="ResultPanel" Margin="0,20,0,0"/>
-        </StackPanel>
+                <StackPanel Name="ResultPanel" Margin="0,20,0,0"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 
 </Window>
