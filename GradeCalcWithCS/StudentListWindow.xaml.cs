@@ -47,7 +47,7 @@ namespace GradeCalcWithCS
 
         private void LoadStudents()
         {
-            string filePath = "C:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS\\students.json";
+            string filePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "students.json");
 
             if (File.Exists(filePath))
             {

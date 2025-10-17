@@ -73,7 +73,7 @@ namespace GradeCalcWithCS
 
             name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name.ToLower());
 
-            string filePath = "C:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS\\students.json";
+            string filePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "students.json");
             List<Student> students = File.Exists(filePath)
                 ? JsonSerializer.Deserialize<List<Student>>(File.ReadAllText(filePath)) ?? new List<Student>()
                 : new List<Student>();

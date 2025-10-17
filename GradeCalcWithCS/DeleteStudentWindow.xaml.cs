@@ -12,7 +12,7 @@ namespace GradeCalcWithCS
     public partial class DeleteStudentWindow : Window
     {
         private List<Student> students = new List<Student>();
-        private string filePath = "C:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS\\students.json";
+        private string filePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "students.json");
 
         public DeleteStudentWindow()
         {

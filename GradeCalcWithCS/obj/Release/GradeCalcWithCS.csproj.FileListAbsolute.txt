@@ -44,3 +44,4 @@ C:\!\Pr\CS\GradeCalcWithCS\GradeCalcWithCS\obj\Release\GradeManager_MarkupCompil
 C:\!\Pr\CS\GradeCalcWithCS\GradeCalcWithCS\obj\Release\GradeManager.g.resources
 C:\!\Pr\CS\GradeCalcWithCS\GradeCalcWithCS\obj\Release\GradeManager.exe
 C:\!\Pr\CS\GradeCalcWithCS\GradeCalcWithCS\obj\Release\GradeManager.pdb
+C:\!\Pr\CS\GradeCalcWithCS\GradeCalcWithCS\obj\Release\GradeManager.exe.config

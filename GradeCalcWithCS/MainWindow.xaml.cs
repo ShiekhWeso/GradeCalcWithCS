@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Text.Json;
 using System.Windows;
-using System.IO;
+using System.Windows.Shapes;
+
 
 
 namespace GradeCalcWithCS
@@ -10,6 +13,11 @@ namespace GradeCalcWithCS
     {
         public MainWindow()
         {
+            var filePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "students.json");
+            if (!File.Exists(filePath))
+            {
+                File.WriteAllText(filePath, "[]");
+            }
             InitializeComponent();
         }
         private void ViewAll_Click(object sender, RoutedEventArgs e)
@@ -71,7 +79,7 @@ namespace GradeCalcWithCS
         }
         public static bool HasStudents()
         {
-            string filePath = "C:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS\\students.json";
+            string filePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "students.json");
 
             if (!File.Exists(filePath)) return false;
 

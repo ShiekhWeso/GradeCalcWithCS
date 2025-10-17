@@ -28,7 +28,7 @@ namespace GradeCalcWithCS
 
         private void LoadStudents()
         {
-            string filePath = "C:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS\\students.json";
+            string filePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "students.json");
             if (File.Exists(filePath))
             {
                 string json = File.ReadAllText(filePath);
@@ -119,7 +119,7 @@ namespace GradeCalcWithCS
                 currentStudent.Subjects[i].Mark = mark;
             }
 
-            string filePath = "C:\\!\\Pr\\CS\\GradeCalcWithCS\\GradeCalcWithCS\\students.json";
+            string filePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "students.json");
             File.WriteAllText(filePath, JsonSerializer.Serialize(students, new JsonSerializerOptions { WriteIndented = true }));
 
             changesSaved = true;
